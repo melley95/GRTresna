@@ -11,11 +11,11 @@ makefiles += releasedExamples_AMRPoisson_execVariableCoefficient
 ## Define the variables needed by Make.example
 
 # Choose a method USE_CTTK or USE_CTTKHybrid
+# cxxcppflags = -DUSE_CTTK
 cxxcppflags = -DUSE_CTTKHybrid
-# cxxcppflags = -DUSE_CTTKHybrid
 
 # the base name(s) of the application(s) in this directory
-ebase = Main_ScalarFieldCosmo
+ebase = Main_ScalarFieldBH
 
 # names of Chombo libraries needed by this program, in order of search.
 LibNames = AMRElliptic AMRTools BoxTools

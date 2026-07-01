@@ -18,6 +18,8 @@ template <typename matter_t> struct CTTKHybrid<matter_t>::params_t
     bool use_compact_Vi_ansatz;
     Real regularised_part_psi;
     bool deactivate_zero_mode;
+    
+    Real g3;
 };
 
 template <typename matter_t>
@@ -42,6 +44,8 @@ void CTTKHybrid<matter_t>::read_params(GRParmParse &pp,
     pp.load("regularised_part_psi", a_method_params.regularised_part_psi, 1.0);
     pp.load("deactivate_zero_mode", a_method_params.deactivate_zero_mode,
             false);
+
+    pp.load("g3", a_method_params.g3, 0.0);
 }
 
 template <typename matter_t>
@@ -94,12 +98,12 @@ void CTTKHybrid<matter_t>::solve_analytic(
             const auto emtensor =
                 matter->compute_emtensor(iv, a_dx, multigrid_vars_box);
 
-            // Set value for K
-            Real K_0_squared = 24.0 * M_PI * G_Newton * emtensor.rho;
+            // Set value for K - quadratic equation in cosmological cubic Horndeski
+            Real G_fac = 24.0 * M_PI * G_Newton;
+            Real K_0_squared = pow(G_fac * m_method_params.g3 * emtensor.Pi_theta3, 2.0) + 4.0 * G_fac * emtensor.rho;
 
             // be careful if at a point K = 0, may have discontinuity
-            multigrid_vars_box(iv, c_K_0) =
-                m_method_params.sign_of_K * sqrt(K_0_squared);
+            multigrid_vars_box(iv, c_K_0) = 0.5 * G_fac * m_method_params.g3 * emtensor.Pi_theta3 + 0.5 * m_method_params.sign_of_K * sqrt(K_0_squared);
 
             // set values for \bar Aij_0
             multigrid_vars_box(iv, c_A11_0) = Aij_reg[0][0] + Aij_bh[0][0];

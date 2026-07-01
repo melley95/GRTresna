@@ -52,6 +52,10 @@ class ScalarField
 
     Real my_Pi_function(const RealVect &loc) const;
 
+    Real my_theta_function(const RealVect &locr) const;
+
+    Real my_Pi_theta_function(const RealVect &loc) const;
+
     params_t m_matter_params;
 
     PsiAndAijFunctions *psi_and_Aij_functions;

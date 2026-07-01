@@ -18,6 +18,8 @@ template <typename matter_t> struct CTTK<matter_t>::params_t
     bool use_compact_Vi_ansatz;
     Real regularised_part_psi;
     bool deactivate_zero_mode;
+
+    Real g3; // Horndeski coupling
 };
 
 template <typename matter_t>
@@ -41,6 +43,8 @@ void CTTK<matter_t>::read_params(GRParmParse &pp, params_t &a_method_params)
     pp.load("regularised_part_psi", a_method_params.regularised_part_psi, 1.0);
     pp.load("deactivate_zero_mode", a_method_params.deactivate_zero_mode,
             false);
+
+    pp.load("g3", a_method_params.g3, 0.0);
 }
 
 template <typename matter_t>

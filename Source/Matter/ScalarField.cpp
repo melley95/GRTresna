@@ -41,6 +41,9 @@ void ScalarField::initialise_matter_vars(LevelData<FArrayBox> &a_multigrid_vars,
 
             multigrid_vars_box(iv, c_phi_0) = my_phi_function(loc);
             multigrid_vars_box(iv, c_Pi_0) = my_Pi_function(loc);
+
+            multigrid_vars_box(iv, c_theta_0) = my_theta_function(loc);
+            multigrid_vars_box(iv, c_Pi_theta_0) = my_Pi_theta_function(loc);
         }
     }
 }
@@ -62,6 +65,8 @@ emtensor_t ScalarField::compute_emtensor(const IntVect a_iv,
     Real Pi_0 = a_multigrid_vars_box(a_iv, c_Pi_0);
     Real phi_0 = a_multigrid_vars_box(a_iv, c_phi_0);
 
+    Real Pi_theta_0 = a_multigrid_vars_box(a_iv, c_Pi_theta_0);
+
     Tensor<1, Real, SpaceDim> d1_phi;
     derivs.get_d1(d1_phi, a_iv, a_multigrid_vars_box, c_phi_0);
     Real d1_phi_squared = 0;
@@ -70,8 +75,10 @@ emtensor_t ScalarField::compute_emtensor(const IntVect a_iv,
     Real V_of_phi = my_potential_function(phi_0);
 
     out.rho =
-        0.5 * pow(psi_0, -4.0) * d1_phi_squared + 0.5 * Pi_0 * Pi_0 + V_of_phi;
+        0.5 * pow(psi_0, -4.0) * d1_phi_squared + 0.5 * Pi_0 * Pi_0 + V_of_phi + 0.5 * Pi_theta_0 * Pi_theta_0;
     FOR1(i) { out.Si[i] = -Pi_0 * d1_phi[i]; }
+
+    out.Pi_theta3 = pow(Pi_theta_0, 3.0);
 
     return out;
 }
