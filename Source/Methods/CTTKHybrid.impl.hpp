@@ -19,7 +19,7 @@ template <typename matter_t> struct CTTKHybrid<matter_t>::params_t
     Real regularised_part_psi;
     bool deactivate_zero_mode;
     
-    Real g3;
+  
 };
 
 template <typename matter_t>
@@ -45,7 +45,6 @@ void CTTKHybrid<matter_t>::read_params(GRParmParse &pp,
     pp.load("deactivate_zero_mode", a_method_params.deactivate_zero_mode,
             false);
 
-    pp.load("g3", a_method_params.g3, 0.0);
 }
 
 template <typename matter_t>
@@ -100,10 +99,10 @@ void CTTKHybrid<matter_t>::solve_analytic(
 
             // Set value for K - quadratic equation in cosmological cubic Horndeski
             Real G_fac = 24.0 * M_PI * G_Newton;
-            Real K_0_squared = pow(G_fac * m_method_params.g3 * emtensor.Pi_theta3, 2.0) + 4.0 * G_fac * emtensor.rho;
+            Real discriminant = pow(G_fac * emtensor.rho_theta_g3, 2.0) + 4.0 * G_fac * (emtensor.rho_theta + emtensor.rho_theta_g2);
 
             // be careful if at a point K = 0, may have discontinuity
-            multigrid_vars_box(iv, c_K_0) = 0.5 * G_fac * m_method_params.g3 * emtensor.Pi_theta3 + 0.5 * m_method_params.sign_of_K * sqrt(K_0_squared);
+            multigrid_vars_box(iv, c_K_0) = 0.5 * G_fac * emtensor.rho_theta_g3 + 0.5 * m_method_params.sign_of_K * sqrt(discriminant);
 
             // set values for \bar Aij_0
             multigrid_vars_box(iv, c_A11_0) = Aij_reg[0][0] + Aij_bh[0][0];
@@ -187,7 +186,7 @@ void CTTKHybrid<matter_t>::set_elliptic_terms(
 
             // rhs terms, K is set to cancel matter terms only
             rhs_box(iv, c_psi) =
-                -0.125 * A2_0 * pow(psi_0, -7.0) - laplacian_psi_reg;
+                -0.125 * A2_0 * pow(psi_0, -7.0) - laplacian_psi_reg - 2.0 * M_PI * G_Newton * pow(psi_0, 5.0) * emtensor.rho;
 
             // Get d_i V_i and laplacians
             Tensor<2, Real, SpaceDim> di_Vi;
@@ -240,7 +239,7 @@ void CTTKHybrid<matter_t>::set_elliptic_terms(
             }
 
             // add the aCoef term
-            aCoef_box(iv, c_psi) += -0.875 * A2_0 * pow(psi_0, -8.0);
+            aCoef_box(iv, c_psi) += -0.875 * A2_0 * pow(psi_0, -8.0) + 2.0 * M_PI * G_Newton * pow(psi_0, 4.0) * (emtensor.rho_grad + 5.0 * emtensor.rho_kin);
         }
     }
 }

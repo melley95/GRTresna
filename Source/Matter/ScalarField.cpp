@@ -74,11 +74,18 @@ emtensor_t ScalarField::compute_emtensor(const IntVect a_iv,
 
     Real V_of_phi = my_potential_function(phi_0);
 
-    out.rho =
-        0.5 * pow(psi_0, -4.0) * d1_phi_squared + 0.5 * Pi_0 * Pi_0 + V_of_phi + 0.5 * Pi_theta_0 * Pi_theta_0;
+    out.rho_grad = 0.5 * pow(psi_0, -4.0) * d1_phi_squared;
+    out.rho_kin =  0.5 * Pi_0 * Pi_0; 
+
+    out.rho =  out.rho_grad + out.rho_kin + V_of_phi;
     FOR1(i) { out.Si[i] = -Pi_0 * d1_phi[i]; }
 
-    out.Pi_theta3 = pow(Pi_theta_0, 3.0);
+
+
+
+    out.rho_theta = 0.5 * pow(Pi_theta_0, 2.0);
+    out.rho_theta_g2 = 0.5 * m_matter_params.g2 * pow(Pi_theta_0, 2.0);
+    out.rho_theta_g3 = m_matter_params.g3 * pow(Pi_theta_0, 3.0);
 
     return out;
 }

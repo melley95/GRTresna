@@ -15,7 +15,13 @@ struct emtensor_t
 {
     Tensor<1, Real> Si; //!< S_i = T_ia_n^a
     Real rho;           //!< rho = T_ab n^a n^b
-    Real Pi_theta3;   // Pi_theta^3
+
+    Real rho_grad;
+    Real rho_kin;
+    
+    Real rho_theta;   // canonical kinetic term for Horndeski 
+    Real rho_theta_g2;  // kinetic with g2
+    Real rho_theta_g3;  // g3 term (without K)
 };
 
 #endif /* EMTENSOR_HPP_ */
