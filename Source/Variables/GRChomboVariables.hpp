@@ -49,8 +49,8 @@ enum
     c_phi, // collapse field
     c_Pi,  
     
-    c_theta,  // Horndeski field
-    c_Pi_theta,
+    c_phi2,  // Horndeski field
+    c_Pi2,
 
     NUM_GRCHOMBO_VARS
 };
@@ -78,7 +78,7 @@ static constexpr char const *variable_names[NUM_GRCHOMBO_VARS] = {
 
     "phi",    "Pi",
 
-    "theta", "Pi_theta"};
+    "phi2", "Pi2"};
 
 static constexpr std::array<int, NUM_GRCHOMBO_VARS> const vars_parity = {
     EVEN,   EVEN,   ODD_XY, ODD_XZ, EVEN,  ODD_YZ, EVEN,  EVEN,  EVEN,

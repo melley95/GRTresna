@@ -19,9 +19,9 @@ struct emtensor_t
     Real rho_grad;
     Real rho_kin;
     
-    Real rho_theta;   // canonical kinetic term for Horndeski 
-    Real rho_theta_g2;  // kinetic with g2
-    Real rho_theta_g3;  // g3 term (without K)
+    Real rho2;   // canonical kinetic term for Horndeski 
+    Real rho2_g2;  // kinetic with g2
+    Real rho2_g3;  // g3 term (without K)
 };
 
 #endif /* EMTENSOR_HPP_ */

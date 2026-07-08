@@ -14,8 +14,8 @@ enum
 {
     c_phi_0 = NUM_METRIC_VARS,
     c_Pi_0,
-    c_theta_0,
-    c_Pi_theta_0,
+    c_phi2_0,
+    c_Pi2_0,
     NUM_MULTIGRID_VARS
 };
 
@@ -23,7 +23,7 @@ namespace MatterVariables
 {
 
 static const std::array<std::string, NUM_MULTIGRID_VARS - NUM_METRIC_VARS>
-    variable_names = {"phi_0", "Pi_0", "theta_0", "Pi_theta_0"};
+    variable_names = {"phi_0", "Pi_0", "phi2_0", "Pi2_0"};
 
 static constexpr std::array<int, NUM_MULTIGRID_VARS - NUM_METRIC_VARS> const
     vars_parity = {EVEN, EVEN, EVEN, EVEN};

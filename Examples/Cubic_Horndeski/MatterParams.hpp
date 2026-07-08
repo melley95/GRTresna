@@ -19,7 +19,7 @@ struct params_t
     Real centre;
     Real scalar_mass;
 
-    Real pi_theta_0; // Initial Horndeski field velocity
+    Real pi2_0; // Initial Horndeski field velocity
     Real vel; // Velocity of ingoing gaussian
     Real g2;
     Real g3;
@@ -32,7 +32,7 @@ inline void read_params(GRParmParse &pp, params_t &matter_params)
     pp.get("width", matter_params.width);
     pp.get("scalar_mass", matter_params.scalar_mass);
 
-    pp.get("pi_theta_0", matter_params.pi_theta_0);
+    pp.get("pi2_0", matter_params.pi2_0);
     pp.get("vel_0", matter_params.vel);
     pp.get("g2", matter_params.g2);
     pp.get("g3", matter_params.g3);

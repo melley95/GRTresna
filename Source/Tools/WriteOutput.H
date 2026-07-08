@@ -340,12 +340,12 @@ void set_output_data(LevelData<FArrayBox> &a_grchombo_vars,
             // Copy phi and Aij across - note this is now \tilde Aij not
             // \bar Aij
 
-            // Swap phi and theta as in GRFolres phi is the Horndeski field
-            grchombo_vars_box(iv, c_phi) = multigrid_vars_box(iv, c_theta_0);
-            grchombo_vars_box(iv, c_Pi) = multigrid_vars_box(iv, c_Pi_theta_0);  
+            // Swap phi and phi2 as in GRFolres phi is the Horndeski field
+            grchombo_vars_box(iv, c_phi) = multigrid_vars_box(iv, c_phi2_0);
+            grchombo_vars_box(iv, c_Pi) = multigrid_vars_box(iv, c_Pi2_0);  
 
-            grchombo_vars_box(iv, c_theta) = multigrid_vars_box(iv, c_phi_0);
-            grchombo_vars_box(iv, c_Pi_theta) = multigrid_vars_box(iv, c_Pi_0);
+            grchombo_vars_box(iv, c_phi2) = multigrid_vars_box(iv, c_phi_0);
+            grchombo_vars_box(iv, c_Pi2) = multigrid_vars_box(iv, c_Pi_0);
 
             grchombo_vars_box(iv, c_K) = multigrid_vars_box(iv, c_K_0);
             grchombo_vars_box(iv, c_A11) =

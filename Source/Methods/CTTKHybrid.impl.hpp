@@ -99,10 +99,10 @@ void CTTKHybrid<matter_t>::solve_analytic(
 
             // Set value for K - quadratic equation in cosmological cubic Horndeski
             Real G_fac = 24.0 * M_PI * G_Newton;
-            Real discriminant = pow(G_fac * emtensor.rho_theta_g3, 2.0) + 4.0 * G_fac * (emtensor.rho_theta + emtensor.rho_theta_g2);
+            Real discriminant = pow(G_fac * emtensor.rho2_g3, 2.0) + 4.0 * G_fac * (emtensor.rho2 + emtensor.rho2_g2);
 
             // be careful if at a point K = 0, may have discontinuity
-            multigrid_vars_box(iv, c_K_0) = 0.5 * G_fac * emtensor.rho_theta_g3 + 0.5 * m_method_params.sign_of_K * sqrt(discriminant);
+            multigrid_vars_box(iv, c_K_0) = 0.5 * G_fac * emtensor.rho2_g3 + 0.5 * m_method_params.sign_of_K * sqrt(discriminant);
 
             // set values for \bar Aij_0
             multigrid_vars_box(iv, c_A11_0) = Aij_reg[0][0] + Aij_bh[0][0];

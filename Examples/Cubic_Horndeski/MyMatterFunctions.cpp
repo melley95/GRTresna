@@ -24,13 +24,13 @@ Real ScalarField::my_Pi_function(const RealVect &loc) const
 }
 
 
-Real ScalarField::my_theta_function(const RealVect &loc) const
+Real ScalarField::my_phi2_function(const RealVect &loc) const
 {
     return 0.0;
 }
 
-Real ScalarField::my_Pi_theta_function(const RealVect &loc) const
+Real ScalarField::my_Pi2_function(const RealVect &loc) const
 {
    
-    return m_matter_params.pi_theta_0;
+    return m_matter_params.pi2_0;
 }

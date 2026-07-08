@@ -87,12 +87,12 @@ void Diagnostics<method_t, matter_t>::compute_constraint_terms(
 
             diagnostic_vars_box(iv, c_Ham) =
                 K_0_squared - 24.0 * M_PI * G_Newton * 
-                (emtensor.rho + emtensor.rho_theta + emtensor.rho_theta_g2 + emtensor.rho_theta_g3 * K)  -
+                (emtensor.rho + emtensor.rho2 + emtensor.rho2_g2 + emtensor.rho2_g3 * K)  -
                 1.5 * A2_0 * pow(psi_0, -12.0) -
                 12.0 * laplacian_psi_reg * pow(psi_0, -5.0);
             diagnostic_vars_box(iv, c_Ham_abs) =
                 K_0_squared + 24.0 * M_PI * G_Newton * 
-                (emtensor.rho + emtensor.rho_theta + abs(emtensor.rho_theta_g2) + abs(emtensor.rho_theta_g3 * K)) +
+                (emtensor.rho + emtensor.rho2 + abs(emtensor.rho2_g2) + abs(emtensor.rho2_g3 * K)) +
                 1.5 * abs(A2_0) * pow(psi_0, -12.0) +
                 12.0 * abs(laplacian_psi_reg) * pow(psi_0, -5.0);
 
