@@ -7,20 +7,29 @@
 
 Real ScalarField::my_potential_function(const Real &phi_here) const
 {
-    return 0.5 * pow(m_matter_params.scalar_mass * phi_here, 2.0);
+    return 0.0;
 }
 
 Real ScalarField::my_phi_function(const RealVect &loc) const
 {
     Real rr = sqrt(loc[0] * loc[0] + loc[1] * loc[1] + loc[2] * loc[2]);
-    return m_matter_params.amp * exp(-pow(rr - m_matter_params.centre, 2.0) / (2.0*pow(m_matter_params.width, 2.0)));
+    Real A = m_matter_params.amp;
+    Real sigma = m_matter_params.width;
+    Real r0 = m_matter_params.centre;
+
+    return A * pow(rr, 2.0) * exp(-pow(rr - r0, 2.0) / (2.0*pow(sigma, 2.0)))/ pow(sigma, 2.0);
 }
 
 Real ScalarField::my_Pi_function(const RealVect &loc) const
 {
 
     Real rr = sqrt(loc[0] * loc[0] + loc[1] * loc[1] + loc[2] * loc[2]);
-    return -m_matter_params.amp * m_matter_params.vel * (rr - m_matter_params.centre) * exp(-pow(rr - m_matter_params.centre, 2.0) / (2.0*pow(m_matter_params.width, 2.0)))/pow(m_matter_params.width, 2.0);
+    Real A = m_matter_params.amp;
+    Real sigma = m_matter_params.width;
+    Real r0 = m_matter_params.centre;
+
+
+    return A * rr * (3.0 -  rr * (rr - r0)/pow(sigma, 2.0)) * exp(-pow(rr - r0, 2.0) / (2.0 * pow(sigma, 2.0)))/ pow(sigma, 2.0);
 }
 
 
