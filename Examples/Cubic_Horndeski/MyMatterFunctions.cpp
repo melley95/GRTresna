@@ -17,7 +17,7 @@ Real ScalarField::my_phi_function(const RealVect &loc) const
     Real sigma = m_matter_params.width;
     Real r0 = m_matter_params.centre;
 
-    return A * pow(rr, 2.0) * exp(-pow(rr - r0, 2.0) / (2.0*pow(sigma, 2.0)))/ pow(sigma, 2.0);
+    return A * pow(rr, 2.0) * exp(-pow(rr - r0, 2.0) / (2.0*pow(sigma, 2.0)))/ pow(r0, 2.0);
 }
 
 Real ScalarField::my_Pi_function(const RealVect &loc) const
@@ -29,7 +29,7 @@ Real ScalarField::my_Pi_function(const RealVect &loc) const
     Real r0 = m_matter_params.centre;
 
 
-    return A * rr * (3.0 -  rr * (rr - r0)/pow(sigma, 2.0)) * exp(-pow(rr - r0, 2.0) / (2.0 * pow(sigma, 2.0)))/ pow(sigma, 2.0);
+    return A * rr * (3.0 -  rr * (rr - r0)/pow(sigma, 2.0)) * exp(-pow(rr - r0, 2.0) / (2.0 * pow(sigma, 2.0)))/ pow(r0, 2.0);
 }
 
 
